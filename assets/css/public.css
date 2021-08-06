@@ -1,0 +1,20 @@
+form{
+    display: flex;
+    flex-flow: wrap row;
+}
+
+input[type='search']{
+    width: 320px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 400px) {
+    input[type='search']{
+        width: 250px;
+        font-size: 14px;
+    }
+}
+
+form .form-input{
+    margin-right: 25px;
+}
