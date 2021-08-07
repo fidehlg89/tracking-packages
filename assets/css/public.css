@@ -1,45 +1,26 @@
-input[type='search']{
-    width: 320px;
-}
-
-@media (max-width: 400px) {
-    input[type='search']{
-        width: 250px;
-    }
-}
-
-form.cuestionario {
+form.search-package {
     max-width: 600px;
 }
 
-form.cuestionario label {
+form.search-package label {
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
 }
 
-form.cuestionario .form-input {
+form.search-package .form-input {
     padding: 1em;
 }
 
-form.cuestionario .form-input input[type='text'],
-form.cuestionario .form-input input[type='email'],
-form.cuestionario textarea {
+form.search-package .form-input input[type='text'] {
     display: block;
     width: 100%;
 }
 
-p.exito {
-    font-size: 1.5em;
-    padding: 1em;
-    border: 2px solid green;
-    background: lightgreen;
+@media (max-width: 400px) {
+    form.search-package .form-input input[type='text']{
+        width: 250px;
+    }
 }
 
-p.error {
-    font-size: 1.5em;
-    padding: 1em;
-    border: 2px solid red;
-    background: #ff8787;
-}
 

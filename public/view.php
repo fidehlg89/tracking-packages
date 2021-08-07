@@ -43,6 +43,22 @@ function package_search_public_view()
     }
     ob_start()
     ?>
+    <div class="container">
+        <div class="card">
+            <div class="card-head"><h3>Seguimiento de paquetes:</h3></div>
+            <div class="card-body">
+                <form action="<?php get_the_permalink(); ?>" method="post">
+                    <div class="form-input">
+                        <input class="form-field" type="search" name="search-value" id="search-value"
+                               placeholder="Introduzca un número de envío" required>
+                    </div>
+                    <div class="form-input">
+                        <input type="submit" value="Buscar">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <?php
 }
 

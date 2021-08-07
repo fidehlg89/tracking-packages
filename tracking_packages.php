@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Tracking Package
+Plugin Name: Tracking Packages
 Description: Tracking Packages destinations
 Version: 0.1.0
 Author: Raptor Web
@@ -10,23 +10,19 @@ License: GPL2
 
 defined('ABSPATH') or die("Bye bye");
 
-define('TP_PATH',plugin_dir_path(__FILE__));
-
-define ('TABLE_NAME',  "tracking_package");
+define('TP_PATH', plugin_dir_path(__FILE__));
+define('TABLE_NAME', "tracking_packages");
 
 include(TP_PATH . 'includes/functions.php');
 
-include(TP_PATH.'/includes/options.php');
+register_activation_hook(__FILE__, 'tracking_packages_init');
 
-register_activation_hook(__FILE__,'tp_plugin_activate');
+add_shortcode('tracking_packages_shortcode', 'tracking_packages_form');
 
-register_deactivation_hook(__FILE__, 'tp_plugin_desactivation');
+add_action("admin_menu", "tracking_packages_menu");
 
-add_action( 'admin_menu', 'tp_admin_menu' );
+register_deactivation_hook(__FILE__, 'tracking_packages_desactivation');
 
-add_shortcode('tracking_package_shortcode', 'tp_shortcode');
+wp_enqueue_style('css_public', plugins_url('./assets/css/public.css', __FILE__));
+wp_enqueue_style('css_admin', plugins_url('./assets/css/admin.css', __FILE__));
 
-add_action( 'admin_enqueue_scripts', 'tracking_packages_admin_assets');
-add_action( 'wp_enqueue_scripts', 'tracking_packages_assets' );
-
-?>
