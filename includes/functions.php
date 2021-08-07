@@ -1,5 +1,6 @@
 <?php
 
+include (TP_PATH.'public/view.php');
 
 function tp_plugin_activate()
 {
@@ -9,7 +10,7 @@ function tp_plugin_activate()
         .'id INT NOT NULL AUTO_INCREMENT,'
         .'sendto TEXT NOT NULL,'
         .'guidenumber VARCHAR(256) NOT NULL,'
-        .'sendnumber VARCHAR(256) NOT NULL UNIQUE,'
+        .'sendnumber VARCHAR(256) NOT NULL,'
         .'chargedest TEXT NOT NULL,'
         .'PRIMARY KEY (id)'
         .')'.$charset_collate.';';
@@ -30,9 +31,7 @@ function tp_plugin_desactivation()
 }
 
 function tp_shortcode(){
-    ob_start();
-    include(TP_PATH . '/public/view.php');
-    return ob_get_clean();
+    return package_search_public_view();
 }
 
 function tracking_packages_admin_assets(){

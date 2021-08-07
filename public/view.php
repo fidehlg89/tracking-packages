@@ -1,59 +1,49 @@
-<div class="container">
-    <div class="card">
-        <div class="card-head"><h3>Seguimiento de Paquetes</h3></div>
-        <div class="card-body">
-            <form action="<?php get_the_permalink(); ?>" method="post">
-                <div class="form-input">
-                    <input class="form-field" type="search" name="search-value" id="search-value" placeholder="Introduzca un número de envío" required>
-                </div>
-                <div class="form-input">
-                    <input type="submit" value="Buscar">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
 <?php
-if (!empty($_POST['search-value'])){
 
-    global $wpdb;
+function package_search_public_view()
+{
+    if (!empty($_POST['search-value'])) {
 
-    $search_value=$_POST['search-value'];
+        global $wpdb;
 
-    $tabla_tracking_packages = $wpdb->prefix . TABLE_NAME;
+        $search_value = $_POST['search-value'];
 
-    $search_result = $wpdb->get_results("SELECT * FROM ".$tabla_tracking_packages." where sendnumber=".$search_value.";");
+        $tabla_tracking_packages = $wpdb->prefix . TABLE_NAME;
 
-    echo "Resultados  de la búsqueda: ".$search_value;
-?>
+        $search_result = $wpdb->get_results("SELECT * FROM " . $tabla_tracking_packages . " where sendnumber=" . $search_value . ";");
 
-        <?php foreach($search_result as $result){ ?>
+        echo "Resultados  de la búsqueda: " . $search_value;
+
+        foreach ($search_result as $result) {
+            ?>
             <div class="container">
                 <div class="card">
                     <div class="card-body">
                         <div class="form-field">
                             <label>Enviado a:</label>
-                            <span><?php echo $result->sendto; ?></span>
+                            <span><?php $result->sendto; ?></span>
                         </div>
                         <div class="form-field">
                             <label>Número de guía: </label>
-                            <span><?php echo $result->guidenumber; ?></span>
+                            <span><?php $result->guidenumber; ?></span>
                         </div>
-                        <div  class="form-field">
+                        <div class="form-field">
                             <label>Número de envío: </label>
-                            <span><?php echo $result->sendnumber; ?></span>
+                            <span><?php $result->sendnumber; ?></span>
                         </div>
                         <div class="form-field">
                             <label>Entrega en destino a cargo de:</label>
-                            <span><?php echo $result->chargedest; ?></span>
+                            <span><?php $result->chargedest; ?></span>
                         </div>
                     </div>
                 </div>
             </div>
-        <?php }
+            <?php
+        }
     }
-ob_start();
+    ob_start()
+    ?>
+    <?php
+}
+
 ?>

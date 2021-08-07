@@ -29,5 +29,4 @@ add_shortcode('tracking_package_shortcode', 'tp_shortcode');
 add_action( 'admin_enqueue_scripts', 'tracking_packages_admin_assets');
 add_action( 'wp_enqueue_scripts', 'tracking_packages_assets' );
 
-ob_start();
 ?>
