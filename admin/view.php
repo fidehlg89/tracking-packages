@@ -6,13 +6,36 @@ if (!current_user_can('manage_options')) wp_die(__(
 global $wpdb;
 $tabla_tracking_packages = $wpdb->prefix . TABLE_NAME;
 
+if (isset($_POST['button-update'])) {
+    $id = $_POST['id'];
+    $sendto = sanitize_text_field($_POST['sendto']);
+    $guideno = $_POST['guideno'];
+    $sendno = $_POST['sendno'];
+    $chargedest = $_POST['chargedest'];
+
+
+    $wpdb->update(
+        $tabla_tracking_packages,
+        array(
+            'sendto' => $sendto,
+            'guidenumber' => $guideno,
+            'sendnumber' => $sendno,
+            'chargedest' => $chargedest,
+        ),
+        array(
+            'id' => $id
+        )
+    );
+}
+
 $tableheaders = array('Enviado a', 'Número de guía', 'Número de envío', 'Entrega destino', 'Acciones');
 $tabledata = $wpdb->get_results("SELECT * FROM " . $tabla_tracking_packages);
 ?>
     <div class="tracking-package-list">
         <div class="wrap">
             <h1>Listado de Paquetes</h1>
-            <a href="?page=tracking_packages_create" class="button button-primary" style="margin-bottom: 10px;">Agregar Paquete</a>
+            <a href="?page=tracking_packages_create" class="button button-primary" style="margin-bottom: 10px;">Agregar
+                Paquete</a>
             <table class="wp-list-table widefat fixed striped">
                 <thead>
                 <tr>
@@ -22,9 +45,9 @@ $tabledata = $wpdb->get_results("SELECT * FROM " . $tabla_tracking_packages);
                 </tr>
                 </thead>
                 <tbody>
-                <?php if (empty($tabledata)){
+                <?php if (empty($tabledata)) {
                     echo '<tr class="no-items"><td colspan="5">La tabla no contiene datos</td></tr>';
-                }?>
+                } ?>
                 <?php foreach ($tabledata as $data) {
                     ?>
                     <tr>

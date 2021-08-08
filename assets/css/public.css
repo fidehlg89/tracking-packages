@@ -23,4 +23,8 @@ form.search-package .form-input input[type='text'] {
     }
 }
 
+form.search-package .searchsubmit{
+    background-color: #99270D;
+}
+
 

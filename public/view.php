@@ -1,19 +1,29 @@
+<form action="<?php get_the_permalink(); ?>" method="post" id="search-package" class="search-package">
+    <div class="form-input">
+        <input type="text" name="search-value" id="search-value"
+               placeholder="Introduzca un número de envío" required/>
+    </div>
+    <div class="form-input">
+        <input type="submit" value="Buscar" class="searchsubmit"/>
+    </div>
+</form>
 <?php
 
-function package_search_public_view()
-{
-    if (!empty($_POST['search-value'])) {
+if (!empty($_POST) && $_POST['search-value'] != '') {
 
-        global $wpdb;
+    global $wpdb;
 
-        $search_value = $_POST['search-value'];
+    $search_value = $_POST['search-value'];
 
-        $tabla_tracking_packages = $wpdb->prefix . TABLE_NAME;
+    $tabla_tracking_packages = $wpdb->prefix . TABLE_NAME;
 
-        $search_result = $wpdb->get_results("SELECT * FROM " . $tabla_tracking_packages . " where sendnumber=" . $search_value . ";");
+    $search_result = $wpdb->get_results("SELECT * FROM " . $tabla_tracking_packages . " where sendnumber=" . $search_value . ";");
 
-        echo "Resultados  de la búsqueda: " . $search_value;
+    echo '<div>Resultados  de la búsqueda: </div>' . $search_value;
 
+    if (empty($search_result)) {
+        echo '<p>Lo sentimos la búsqueda no arrojó resultados. Para mayor información puede contactarnos al correo atencionalcliente@martelexpresssa.com</p>';
+    } else {
         foreach ($search_result as $result) {
             ?>
             <div class="container">
@@ -21,19 +31,19 @@ function package_search_public_view()
                     <div class="card-body">
                         <div class="form-field">
                             <label>Enviado a:</label>
-                            <span><?php $result->sendto; ?></span>
+                            <span><?php echo $result->sendto; ?></span>
                         </div>
                         <div class="form-field">
                             <label>Número de guía: </label>
-                            <span><?php $result->guidenumber; ?></span>
+                            <span><?php echo $result->guidenumber; ?></span>
                         </div>
                         <div class="form-field">
                             <label>Número de envío: </label>
-                            <span><?php $result->sendnumber; ?></span>
+                            <span><?php echo $result->sendnumber; ?></span>
                         </div>
                         <div class="form-field">
                             <label>Entrega en destino a cargo de:</label>
-                            <span><?php $result->chargedest; ?></span>
+                            <span><?php echo $result->chargedest; ?></span>
                         </div>
                     </div>
                 </div>
@@ -41,25 +51,4 @@ function package_search_public_view()
             <?php
         }
     }
-    ob_start()
-    ?>
-    <div class="container">
-        <div class="card">
-            <div class="card-head"><h3>Seguimiento de paquetes:</h3></div>
-            <div class="card-body">
-                <form action="<?php get_the_permalink(); ?>" method="post">
-                    <div class="form-input">
-                        <input class="form-field" type="search" name="search-value" id="search-value"
-                               placeholder="Introduzca un número de envío" required>
-                    </div>
-                    <div class="form-input">
-                        <input type="submit" value="Buscar">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <?php
 }
-
-?>

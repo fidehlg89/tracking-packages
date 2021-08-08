@@ -28,57 +28,7 @@ function tracking_packages_desactivation()
 function tracking_packages_form()
 {
     ob_start();
-    ?>
-    <form action="<?php get_the_permalink(); ?>" method="post" id="search-package" class="search-package">
-        <div class="form-input">
-            <input type="text" name="search-value" id="search-value"
-                   placeholder="Introduzca un número de envío" required/>
-        </div>
-        <div class="form-input">
-            <input type="submit" value="Buscar"/>
-        </div>
-    </form>
-    <?php
-
-    if (!empty($_POST) && $_POST['search-value'] != '') {
-
-        global $wpdb;
-
-        $search_value = $_POST['search-value'];
-
-        $tabla_tracking_packages = $wpdb->prefix . TABLE_NAME;
-
-        $search_result = $wpdb->get_results("SELECT * FROM " . $tabla_tracking_packages . " where sendnumber=" . $search_value . ";");
-
-        echo "Resultados  de la búsqueda: " . $search_value;
-
-        foreach ($search_result as $result) {
-            ?>
-            <div class="container">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="form-field">
-                            <label>Enviado a:</label>
-                            <span><?php echo $result->sendto; ?></span>
-                        </div>
-                        <div class="form-field">
-                            <label>Número de guía: </label>
-                            <span><?php echo $result->guidenumber; ?></span>
-                        </div>
-                        <div class="form-field">
-                            <label>Número de envío: </label>
-                            <span><?php echo $result->sendnumber; ?></span>
-                        </div>
-                        <div class="form-field">
-                            <label>Entrega en destino a cargo de:</label>
-                            <span><?php echo $result->chargedest; ?></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php
-        }
-    }
+    include TP_PATH . 'public/view.php';
     return ob_get_clean();
 }
 
@@ -111,8 +61,6 @@ function tracking_packages_menu()
         'tracking_packages_delete',// $menu_slug,
         'tracking_packages_delete'// $function
     );
-
-
 }
 
 function tracking_packages_list()
@@ -192,7 +140,8 @@ function tracking_packages_update()
     $results = $wpdb->get_results("SELECT * FROM $tabla_tracking_packages WHERE id=$id");
     ?>
     <div class="card">
-        <form action="<?php get_the_permalink(); ?>" method="post" class="package-info-form">
+        <h1>Editar datos</h1>
+        <form action="?page=tracking_packages_list" method="post" class="package-info-form">
             <table class="form-table" role="presentation">
                 <tr class="form-field hidden">
                     <td><input type="text" name="id" id="sendto" class="form-field" value="<?= $results[0]->id; ?>"/>
@@ -224,37 +173,6 @@ function tracking_packages_update()
             </table>
         </form>
     </div>
-
-    <?php
-    if (isset($_POST['button-update'])) {
-        global $wpdb;
-        $table_name = $wpdb->prefix . TABLE_NAME;
-
-        $id = $_POST['id'];
-        $sendto = sanitize_text_field($_POST['sendto']);
-        $guideno = $_POST['guideno'];
-        $sendno = $_POST['sendno'];
-        $chargedest = $_POST['chargedest'];
-
-
-        $wpdb->update(
-            $table_name,
-            array(
-                'sendto' => $sendto,
-                'guidenumber' => $guideno,
-                'sendnumber' => $sendno,
-                'chargedest' => $chargedest,
-            ),
-            array(
-                'id' => $id
-            )
-        );
-
-        ?>
-        <meta http-equiv="refresh" content="0; url='?page=tracking_packages_list'"/>
-        <?php
-    }
-    ?>
     <?php
 }
 
