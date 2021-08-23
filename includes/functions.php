@@ -9,6 +9,7 @@ function tracking_packages_init()
         . 'guidenumber VARCHAR(256) NOT NULL,'
         . 'sendnumber VARCHAR(256) NOT NULL,'
         . 'chargedest TEXT NOT NULL,'
+        . 'status VARCHAR(64) NOT NULL,'
         . 'PRIMARY KEY (id)'
         . ')' . $charset_collate . ';';
     // La función dbDelta que nos permite crear tablas de manera segura se
@@ -95,6 +96,16 @@ function tracking_packages_create()
                     <td><input type="text" name="chargedest" id="chargedest" class="form-field" required/></td>
                 </tr>
                 <tr class="form-field">
+                    <th scope="row"><label>Estado:</label></label></th>
+                    <td>
+                        <select name="package_status" required>
+                            <option value="1">Procesando</option>
+                            <option value="2">En tránsito</option>
+                            <option value="3">En destino</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="form-field">
                     <th><input type="submit" name="button-create" class="button button-primary" value="Guardar"/></th>
                 </tr>
             </table>
@@ -108,6 +119,7 @@ function tracking_packages_create()
         $guideno = $_POST['guideno'];
         $sendno = $_POST['sendno'];
         $chargedest = $_POST['chargedest'];
+        $package_status = $_POST['package_status'];
 
         global $wpdb;
         $tabla_tracking_packages = $wpdb->prefix . TABLE_NAME;
@@ -118,6 +130,7 @@ function tracking_packages_create()
                 'guidenumber' => $guideno,
                 'sendnumber' => $sendno,
                 'chargedest' => $chargedest,
+                'status' => $package_status,
             )
         );
 

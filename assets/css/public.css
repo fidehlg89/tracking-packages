@@ -3,8 +3,8 @@ form.search-package {
 }
 
 form.search-package label {
+    display: inline-block;
     font-weight: bold;
-    display: block;
     margin-bottom: 5px;
 }
 

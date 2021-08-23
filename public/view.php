@@ -19,31 +19,36 @@ if (!empty($_POST) && $_POST['search-value'] != '') {
 
     $search_result = $wpdb->get_results("SELECT * FROM " . $tabla_tracking_packages . " where sendnumber=" . $search_value . ";");
 
-    echo '<div>Resultados  de la búsqueda: </div>' . $search_value;
+    echo '<div>Resultados  de la búsqueda: ' . $search_value.'</div>';
 
     if (empty($search_result)) {
         echo '<p>Lo sentimos la búsqueda no arrojó resultados. Para mayor información puede contactarnos al correo atencionalcliente@martelexpresssa.com</p>';
     } else {
+        $status=array('Procesando', 'En tránsito', 'En destino');
         foreach ($search_result as $result) {
             ?>
             <div class="container">
                 <div class="card">
                     <div class="card-body">
                         <div class="form-field">
-                            <label>Enviado a:</label>
+                            <b>Enviado a: </b>
                             <span><?php echo $result->sendto; ?></span>
                         </div>
                         <div class="form-field">
-                            <label>Número de guía: </label>
+                            <b>Número de guía: </b>
                             <span><?php echo $result->guidenumber; ?></span>
                         </div>
                         <div class="form-field">
-                            <label>Número de envío: </label>
+                            <b>Número de envío: </b>
                             <span><?php echo $result->sendnumber; ?></span>
                         </div>
                         <div class="form-field">
-                            <label>Entrega en destino a cargo de:</label>
+                            <b>Entrega en destino a cargo de: </b>
                             <span><?php echo $result->chargedest; ?></span>
+                        </div>
+                        <div class="form-field">
+                            <b>Estado: </b>
+                            <span><?php echo $status[($result->status-1)]; ?></span>
                         </div>
                     </div>
                 </div>

@@ -28,7 +28,7 @@ if (isset($_POST['button-update'])) {
     );
 }
 
-$tableheaders = array('Enviado a', 'Número de guía', 'Número de envío', 'Entrega destino', 'Acciones');
+$tableheaders = array('Enviado a', 'Número de guía', 'Número de envío', 'Entrega destino', 'Estado', 'Acciones');
 $tabledata = $wpdb->get_results("SELECT * FROM " . $tabla_tracking_packages);
 ?>
     <div class="tracking-package-list">
@@ -55,6 +55,7 @@ $tabledata = $wpdb->get_results("SELECT * FROM " . $tabla_tracking_packages);
                         <td><?php print($data->guidenumber) ?></td>
                         <td><?php print($data->sendnumber) ?></td>
                         <td><?php print($data->chargedest) ?></td>
+                        <td><?php print($data->status) ?></td>
                         <td>
                             <a href="<?php echo admin_url('admin.php?page=tracking_packages_update&id=' . $data->id); ?>">Editar</a>
                             |
