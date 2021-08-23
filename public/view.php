@@ -48,7 +48,7 @@ if (!empty($_POST) && $_POST['search-value'] != '') {
                         </div>
                         <div class="form-field">
                             <b>Estado: </b>
-                            <span><?php echo $status[($result->status-1)]; ?></span>
+                            <span><?php echo $result->status; ?></span>
                         </div>
                     </div>
                 </div>

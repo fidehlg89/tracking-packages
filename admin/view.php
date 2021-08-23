@@ -12,7 +12,8 @@ if (isset($_POST['button-update'])) {
     $guideno = $_POST['guideno'];
     $sendno = $_POST['sendno'];
     $chargedest = $_POST['chargedest'];
-
+    $package_status = $_POST['package_status'];
+    $status=array('Procesando', 'En tránsito', 'En destino');    
 
     $wpdb->update(
         $tabla_tracking_packages,
@@ -21,6 +22,7 @@ if (isset($_POST['button-update'])) {
             'guidenumber' => $guideno,
             'sendnumber' => $sendno,
             'chargedest' => $chargedest,
+            'status' => $status[($package_status-1)],
         ),
         array(
             'id' => $id
@@ -48,8 +50,7 @@ $tabledata = $wpdb->get_results("SELECT * FROM " . $tabla_tracking_packages);
                 <?php if (empty($tabledata)) {
                     echo '<tr class="no-items"><td colspan="5">La tabla no contiene datos</td></tr>';
                 } ?>
-                <?php foreach ($tabledata as $data) {
-                    ?>
+                <?php foreach ($tabledata as $data) { ?>
                     <tr>
                         <td><?php print($data->sendto) ?></td>
                         <td><?php print($data->guidenumber) ?></td>

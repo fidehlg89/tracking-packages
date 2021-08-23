@@ -99,9 +99,9 @@ function tracking_packages_create()
                     <th scope="row"><label>Estado:</label></label></th>
                     <td>
                         <select name="package_status" required>
-                            <option value="1">Procesando</option>
-                            <option value="2">En tránsito</option>
-                            <option value="3">En destino</option>
+                            <option value="0">Procesando</option>
+                            <option value="1">En tránsito</option>
+                            <option value="2">En destino</option>
                         </select>
                     </td>
                 </tr>
@@ -123,6 +123,7 @@ function tracking_packages_create()
 
         global $wpdb;
         $tabla_tracking_packages = $wpdb->prefix . TABLE_NAME;
+        $status=array('Procesando', 'En tránsito', 'En destino');
 
         $datainserted = $wpdb->insert($tabla_tracking_packages,
             array(
@@ -130,7 +131,7 @@ function tracking_packages_create()
                 'guidenumber' => $guideno,
                 'sendnumber' => $sendno,
                 'chargedest' => $chargedest,
-                'status' => $package_status,
+                'status' => $status[($package_status)],
             )
         );
 
@@ -179,6 +180,22 @@ function tracking_packages_update()
                     <th scope="row"><label>Entrega en destino:</label></label></th>
                     <td><input type="text" name="chargedest" id="chargedest" class="form-field"
                                value="<?= $results[0]->chargedest; ?>"/></td>
+                </tr>
+                <tr class="form-field">
+                    <th scope="row"><label>Estado:</label></label></th>
+                    <td>
+                        <?php $status=array('Procesando', 'En tránsito', 'En destino'); ?>
+                        <select name="package_status" required>
+                            <?php foreach ($status as $key=>$value){ ?>
+                            <?php 
+                                if ($results[0]->status==$value) {?>
+                                    <option value="<?php print($key)?>" selected><?php print($value)?></option>
+                                <?php } else { ?>
+                                    <option value="<?php print($key)?>"><?php print($value)?></option>
+                                <?php } ?>
+                            <?php } ?>
+                        </select>
+                    </td>
                 </tr>
                 <tr class="form-field">
                     <th><input type="submit" name="button-update" class="button button-primary" value="Guardar"/></th>
