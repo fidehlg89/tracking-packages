@@ -131,7 +131,7 @@ function tracking_packages_create()
                 'guidenumber' => $guideno,
                 'sendnumber' => $sendno,
                 'chargedest' => $chargedest,
-                'status' => $status[($package_status)],
+                'status' => $status[($package_status-1)],
             )
         );
 
