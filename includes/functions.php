@@ -99,9 +99,9 @@ function tracking_packages_create()
                     <th scope="row"><label>Estado:</label></label></th>
                     <td>
                         <select name="package_status" required>
-                            <option value="0">Procesando</option>
-                            <option value="1">En tránsito</option>
-                            <option value="2">En destino</option>
+                            <option value="1">Procesando</option>
+                            <option value="2">En tránsito</option>
+                            <option value="3">En destino</option>
                         </select>
                     </td>
                 </tr>
@@ -189,9 +189,9 @@ function tracking_packages_update()
                             <?php foreach ($status as $key=>$value){ ?>
                             <?php 
                                 if ($results[0]->status==$value) {?>
-                                    <option value="<?php print($key)?>" selected><?php print($value)?></option>
+                                    <option value="<?php print($key+1)?>" selected><?php print($value)?></option>
                                 <?php } else { ?>
-                                    <option value="<?php print($key)?>"><?php print($value)?></option>
+                                    <option value="<?php print($key+1)?>"><?php print($value)?></option>
                                 <?php } ?>
                             <?php } ?>
                         </select>
